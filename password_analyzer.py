@@ -1,8 +1,4 @@
 """
-╔══════════════════════════════════════════════════╗
-║         PASSWORD STRENGTH ANALYZER v1.0          ║
-║         Cybersecurity Assessment Tool            ║
-╚══════════════════════════════════════════════════╝
 """
 
 import re
@@ -10,10 +6,8 @@ import getpass
 import sys
 import os
 
-
-# ─────────────────────────────────────────────────
 #  ANSI Color Codes
-# ─────────────────────────────────────────────────
+
 class Color:
     RESET   = "\033[0m"
     BOLD    = "\033[1m"
@@ -28,10 +22,8 @@ class Color:
     WHITE   = "\033[97m"
     GREY    = "\033[90m"
 
-
-# ─────────────────────────────────────────────────
 #  Common / Weak Passwords Blacklist
-# ─────────────────────────────────────────────────
+
 COMMON_PASSWORDS = {
     "password", "123456", "12345678", "qwerty", "abc123",
     "password1", "111111", "123123", "admin", "letmein",
@@ -43,9 +35,8 @@ COMMON_PASSWORDS = {
 }
 
 
-# ─────────────────────────────────────────────────
 #  Analysis Engine
-# ─────────────────────────────────────────────────
+
 def analyse_password(password: str) -> dict:
     """
     Analyse a password and return a detailed report dict.
@@ -69,7 +60,7 @@ def analyse_password(password: str) -> dict:
     is_all_digits    = password.isdigit()
     is_all_alpha     = password.isalpha()
 
-    # ── Scoring ──────────────────────────────────
+    # Scoring
     score = 0
 
     # Length scoring
@@ -102,7 +93,7 @@ def analyse_password(password: str) -> dict:
     # Clamp score to 0–10
     score = max(0, min(score, 10))
 
-    # ── Strength label ────────────────────────────
+    #  Strength label
     if score >= 9:
         strength = "Very Strong"
         color    = Color.GREEN
@@ -124,34 +115,34 @@ def analyse_password(password: str) -> dict:
         color    = Color.RED + Color.BOLD
         bar_fill = 1
 
-    # ── Suggestions ───────────────────────────────
+    # Suggestions 
     suggestions = []
     if is_common:
-        suggestions.append("❌  This is an extremely common password — never use it.")
+        suggestions.append(" This is an extremely common password — never use it.")
     if length < 8:
-        suggestions.append("📏  Use at least 8 characters (12+ recommended).")
+        suggestions.append(" Use at least 8 characters (12+ recommended).")
     elif length < 12:
-        suggestions.append("📏  Consider extending to 12+ characters for better security.")
+        suggestions.append(" Consider extending to 12+ characters for better security.")
     if not has_upper:
-        suggestions.append("🔠  Add uppercase letters (A–Z).")
+        suggestions.append(" Add uppercase letters (A–Z).")
     if not has_lower:
-        suggestions.append("🔡  Add lowercase letters (a–z).")
+        suggestions.append(" Add lowercase letters (a–z).")
     if not has_digit:
-        suggestions.append("🔢  Include numbers (0–9).")
+        suggestions.append(" Include numbers (0–9).")
     if not has_special:
-        suggestions.append("✨  Add special characters (e.g. @, #, $, !, %).")
+        suggestions.append(" Add special characters (e.g. @, #, $, !, %).")
     if has_repeat_chars:
-        suggestions.append("🔁  Avoid repeating the same character 3+ times in a row.")
+        suggestions.append(" Avoid repeating the same character 3+ times in a row.")
     if has_seq_digits or has_seq_letters:
-        suggestions.append("📶  Avoid sequential patterns like '123' or 'abc'.")
+        suggestions.append(" Avoid sequential patterns like '123' or 'abc'.")
     if has_keyboard_run:
-        suggestions.append("⌨️  Avoid keyboard runs like 'qwerty' or 'asdf'.")
+        suggestions.append("  Avoid keyboard runs like 'qwerty' or 'asdf'.")
     if is_all_digits:
-        suggestions.append("🔢  A number-only password is very easy to crack.")
+        suggestions.append("  A number-only password is very easy to crack.")
     if is_all_alpha:
-        suggestions.append("🔤  A letters-only password is weaker — mix in digits & symbols.")
+        suggestions.append("  A letters-only password is weaker — mix in digits & symbols.")
     if not suggestions:
-        suggestions.append("✅  Great password! No obvious weaknesses detected.")
+        suggestions.append(" Great password! No obvious weaknesses detected.")
 
     return {
         "password"       : password,
@@ -175,9 +166,8 @@ def analyse_password(password: str) -> dict:
     }
 
 
-# ─────────────────────────────────────────────────
 #  Display Helpers
-# ─────────────────────────────────────────────────
+
 SEGMENTS = 5   # total bar segments
 
 def strength_bar(fill: int, color: str) -> str:
@@ -246,7 +236,6 @@ def print_report(r: dict) -> None:
     print()
 
 
-# ─────────────────────────────────────────────────
 #  Main Interactive Loop
 # ─────────────────────────────────────────────────
 def banner() -> None:
