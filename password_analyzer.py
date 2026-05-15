@@ -1,5 +1,5 @@
 # Password Strength Analyzer
-# Made by: [Your Name]
+# Made by: Saloni Basugade
 
 import re
 
