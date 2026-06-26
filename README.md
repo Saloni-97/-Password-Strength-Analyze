@@ -61,12 +61,6 @@ This project demonstrates practical implementation of Python programming, regula
 
 ---
 
-## Learning Outcomes
-
-* Practical implementation of cybersecurity concepts
-* Python-based input validation and logic building
-* Use of regular expressions for pattern analysis
-* Understanding of secure authentication practices
 
 ---
 
