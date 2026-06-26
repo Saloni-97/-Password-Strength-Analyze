@@ -1,3 +1,10 @@
+## Password Strength Analyzer
+
+## Project Overview
+
+Password Strength Analyzer is a Python-based cybersecurity tool developed to assess password security using industry-standard validation parameters. The system evaluates password strength based on character diversity, length, numerical values, and special symbols, while providing intelligent feedback to encourage secure password creation practices.
+
+This project demonstrates practical implementation of Python programming, regular expressions, input validation, and basic cybersecurity principles in user authentication systems.
 
 ---
 
